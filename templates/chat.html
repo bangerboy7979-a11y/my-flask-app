@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chat</title>
+
+<style>
+body {
+    margin: 0;
+    background: #0b141a;
+    font-family: Arial;
+    color: white;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #222;
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dp {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: gray;
+}
+
+/* CHAT AREA */
+.chat-box {
+    height: 80vh;
+    overflow-y: scroll;
+    padding: 15px;
+}
+
+/* MESSAGE */
+.msg {
+    max-width: 60%;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+/* LEFT */
+.left {
+    background: #202c33;
+}
+
+/* RIGHT */
+.right {
+    background: #005c4b;
+    margin-left: auto;
+}
+
+/* IMAGE */
+.msg img {
+    width: 150px;
+    border-radius: 10px;
+    margin-top: 5px;
+}
+
+/* INPUT */
+.input-box {
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #222;
+}
+
+.input-box input {
+    flex: 1;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #202c33;
+    color: white;
+}
+
+.input-box button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    background: #00a884;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <div class="user">
+        <div class="dp"></div>
+        <b>{{ username }}</b>
+    </div>
+    <div>📞 📹</div>
+</div>
+
+<!-- CHAT -->
+<div class="chat-box">
+
+{% for msg in chats %}
+
+    {% if msg[1] == session["user"] %}
+        <div class="msg right">
+
+            {% if msg[3] %}
+                {{ msg[3] }}
+            {% endif %}
+
+            {% if msg[4] %}
+                <br>
+                <img src="{{ url_for('static', filename='uploads/' + msg[4]) }}">
+            {% endif %}
+
+        </div>
+    {% else %}
+        <div class="msg left">
+
+            {% if msg[3] %}
+                {{ msg[3] }}
+            {% endif %}
+
+            {% if msg[4] %}
+                <br>
+                <img src="{{ url_for('static', filename='uploads/' + msg[4]) }}">
+            {% endif %}
+
+        </div>
+    {% endif %}
+
+{% endfor %}
+
+</div>
+
+<!-- INPUT -->
+<form method="POST" enctype="multipart/form-data" class="input-box">
+    <input type="text" name="message" placeholder="Message...">
+    <input type="file" name="image">
+    <button>Send</button>
+</form>
+
+<!-- AUTO REFRESH -->
+<script>
+setTimeout(() => {
+    location.reload();
+}, 3000);
+</script>
+
+</body>
+</html>

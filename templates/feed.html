@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>SnapVerse</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: #000;
+    color: white;
+}
+
+.container {
+    display: flex;
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+    width: 220px;
+    height: 100vh;
+    background: #000;
+    padding: 20px;
+    border-right: 1px solid #333;
+}
+
+.sidebar h2 {
+    margin-bottom: 30px;
+}
+
+.menu a {
+    display: block;
+    margin: 15px 0;
+    color: white;
+    text-decoration: none;
+}
+
+.menu a:hover {
+    color: pink;
+}
+
+/* CENTER FEED */
+.feed {
+    flex: 1;
+    padding: 20px;
+}
+
+/* STORIES */
+.stories {
+    display: flex;
+    overflow-x: auto;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.story {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid pink;
+}
+
+/* POST */
+.post {
+    background: #111;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.post img, video {
+    width: 100%;
+    border-radius: 10px;
+}
+
+/* RIGHT PANEL */
+.right {
+    width: 250px;
+    padding: 20px;
+}
+
+button {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- LEFT -->
+    <div class="sidebar">
+        <h2>✨ SnapVerse</h2>
+        <div class="menu">
+            <a href="/feed">🏠 Home</a>
+            <a href="/reels">🎬 Reels</a>
+            <a href="/messages">💬 Messages</a>
+            <a href="#">🔍 Search</a>
+            <a href="/create">➕ Create</a>
+            <a href="#">👤 Profile</a>
+            <a href="/logout">🚪 Logout</a>
+        </div>
+    </div>
+
+    <!-- CENTER -->
+    <div class="feed">
+
+        <!-- STORIES -->
+        <div class="stories">
+            <img class="story" src="https://i.pravatar.cc/100?1">
+            <img class="story" src="https://i.pravatar.cc/100?2">
+            <img class="story" src="https://i.pravatar.cc/100?3">
+            <img class="story" src="https://i.pravatar.cc/100?4">
+        </div>
+
+        <!-- POSTS -->
+       {% for post in posts %}
+<div class="post">
+
+    <a href="/profile/{{ post[3] }}">
+        👤 {{ post[3] }}
+    </a>
+
+    {% if post[1] %}
+    <img src="{{ url_for('static', filename='uploads/' + post[1]) }}">
+    {% endif %}
+
+    {% if post[2] %}
+    <video controls autoplay loop muted>
+        <source src="{{ url_for('static', filename='uploads/' + post[2]) }}">
+    </video>
+    {% endif %}
+
+    <br>
+
+    ❤️ {{ post[4] }} likes
+
+    <form action="/like/{{ post[0] }}" method="POST">
+        <button>❤️ Like</button>
+    </form>
+
+    <form action="/comment/{{ post[0] }}" method="POST">
+        <input type="text" name="comment" placeholder="Add comment">
+        <button>Post</button>
+    </form>
+
+</div>
+{% endfor %}
+    <!-- RIGHT -->
+    <div class="right">
+        <h3>Suggestions</h3>
+        <p>👤 user_1</p>
+        <p>👤 user_2</p>
+        <p>👤 user_3</p>
+    </div>
+
+</div>
+
+</body>
+</html>

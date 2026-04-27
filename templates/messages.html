@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Messages</title>
+
+<style>
+body {
+    background: #000;
+    color: white;
+    font-family: Arial;
+    margin: 0;
+}
+
+/* HEADER */
+.header {
+    padding: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    border-bottom: 1px solid #333;
+}
+
+/* SEARCH BAR */
+.search {
+    padding: 10px;
+}
+.search input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    border: none;
+    background: #222;
+    color: white;
+}
+
+/* USER LIST */
+.chat-list {
+    padding: 10px;
+}
+
+/* SINGLE CHAT */
+.chat {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.chat:hover {
+    background: #111;
+}
+
+/* PROFILE PIC */
+.dp {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: gray;
+}
+
+/* TEXT */
+.chat-text {
+    flex: 1;
+}
+
+.username {
+    font-weight: bold;
+}
+
+.last-msg {
+    font-size: 12px;
+    color: gray;
+}
+
+/* TIME */
+.time {
+    font-size: 12px;
+    color: gray;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+    💬 Messages
+</div>
+
+<div class="search">
+    <input type="text" placeholder="Search...">
+</div>
+
+<div class="chat-list">
+
+{% for user in users %}
+<a href="/chat/{{ user[0] }}" style="text-decoration:none; color:white;">
+
+<div class="chat">
+
+    <div class="dp"></div>
+
+    <div class="chat-text">
+        <div class="username">{{ user[0] }}</div>
+        <div class="last-msg">Tap to chat...</div>
+    </div>
+
+    <div class="time">now</div>
+
+</div>
+
+</a>
+{% endfor %}
+
+</div>
+
+</body>
+</html>

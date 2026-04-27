@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Reels</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    overflow: hidden;
+}
+
+video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+</style>
+</head>
+
+<body>
+
+{% for post in posts %}
+    {% if post[2] %}
+        <video autoplay loop controls>
+            <source src="{{ url_for('static', filename='uploads/' + post[2]) }}">
+        </video>
+    {% endif %}
+{% endfor %}
+
+</body>
+</html>
